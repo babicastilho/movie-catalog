@@ -28,3 +28,6 @@ pnpm-debug.log*
 # Project Structure Generator
 generate-structure.js
 project-structure.md
+
+#
+.gitattributes
