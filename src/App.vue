@@ -1,30 +1,22 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view />
+  <div class="text-center">
+    <!-- Display Vuex message -->
+    <h1 class="text-4xl font-bold text-blue-500">{{ message }}</h1>
+
+    <!-- Router link to navigate to Home -->
+    <router-link to="/">Go to Home</router-link>
+  </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script lang="ts">
+import { defineComponent, computed } from "vue";
+import { useStore } from "vuex"; // Import Vuex store hook
 
-nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
-</style>
+export default defineComponent({
+  setup() {
+    const store = useStore(); // Access Vuex store
+    const message = computed(() => store.getters.getMessage); // Compute message from Vuex store
+    return { message };
+  },
+});
+</script>
