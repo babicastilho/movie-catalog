@@ -1,13 +1,13 @@
 import { createStore } from "vuex";
 
-// Create Vuex Store
-const store = createStore({
+export default createStore({
   state: {
-    message: "Vuex is successfully connected!", // State message for testing
+    message: "Welcome to Vuex Store!",
   },
   getters: {
-    getMessage: (state) => state.message, // Getter to access the message state
+    getMessage: (state) => state.message,
   },
+  mutations: {},
+  actions: {},
+  modules: {},
 });
-
-export default store;
