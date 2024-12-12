@@ -1,7 +1,7 @@
 // Footer.vue
 <template>
   <footer
-    class="text-center p-4 mt-4"
+    class="text-center p-4"
     :class="{
       'bg-gray-200 text-gray-700': theme === 'light',
       'bg-gray-800 text-gray-300': theme === 'dark',

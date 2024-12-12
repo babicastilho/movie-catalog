@@ -18,11 +18,25 @@ import {
   faCog,
   faSun,
   faMoon,
+  faBars,
+  faTimes,
+  faChevronDown,
 } from "@fortawesome/free-solid-svg-icons";
 import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 
 // Add the selected icons to the Font Awesome library
-library.add(faHome, faUser, faCog, faGithub, faLinkedin, faSun, faMoon);
+library.add(
+  faHome,
+  faUser,
+  faCog,
+  faGithub,
+  faLinkedin,
+  faSun,
+  faMoon,
+  faBars,
+  faTimes,
+  faChevronDown
+);
 
 // Confirmation message in development environments
 if (process.env.NODE_ENV === "development") {
