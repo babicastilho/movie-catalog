@@ -1,11 +1,7 @@
 // Footer.vue
 <template>
   <footer
-    class="text-center p-4"
-    :class="{
-      'bg-gray-200 text-gray-700': theme === 'light',
-      'bg-gray-900 text-gray-200': theme === 'dark',
-    }"
+    class="text-center p-4 bg-gray-200 dark:bg-gray-900 text-gray-900 dark:text-gray-200"
   >
     <p>© 2024 Movie Catalog</p>
   </footer>
