@@ -1,32 +1,61 @@
 /**
  * store/themeState.ts
- * Centralized state management for theme toggling.
+ * Manages the state of the application's theme using Vuex.
  *
- * This file defines a shared theme state using Vue's Composition API.
- * It provides a `theme` reactive reference and a `toggleTheme` function.
+ * This module centralizes theme state management and provides actions to toggle the theme.
+ * The theme state is persisted in `localStorage` and synchronized with the DOM's `classList`.
  *
- * The `theme` state reflects the current theme ("light" or "dark") applied to the application.
- * The `toggleTheme` function switches the theme and persists the preference in localStorage.
- *
- * @exports theme - The reactive theme state.
- * @exports toggleTheme - Function to toggle the theme and persist the state.
+ * @exports - Vuex module for theme state management.
  */
 
-import { ref } from "vue";
+import { Module } from "vuex";
 import { toggleTheme as utilToggleTheme } from "@/utils/themeUtils";
 
-// Shared theme state
-const theme = ref(
-  localStorage.getItem("theme") ||
-    (document.documentElement.classList.contains("dark") ? "dark" : "light")
-);
+interface ThemeState {
+  theme: string;
+}
 
-/**
- * Toggles the theme between "light" and "dark".
- * Updates the `theme` state and applies the new theme globally.
- */
-const toggleTheme = () => {
-  theme.value = utilToggleTheme(theme.value); // Use the utility function to toggle the theme
+// Initial state
+const state: ThemeState = {
+  theme:
+    localStorage.getItem("theme") ||
+    (document.documentElement.classList.contains("dark") ? "dark" : "light"),
 };
 
-export { theme, toggleTheme };
+// Mutations
+const mutations = {
+  setTheme(state: ThemeState, newTheme: string) {
+    state.theme = newTheme;
+    localStorage.setItem("theme", newTheme);
+
+    // Update the DOM class
+    if (newTheme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  },
+};
+
+// Actions
+const actions = {
+  toggleTheme({ commit, state }: any) {
+    const newTheme = utilToggleTheme(state.theme);
+    commit("setTheme", newTheme);
+  },
+};
+
+// Getters
+const getters = {
+  currentTheme: (state: ThemeState) => state.theme,
+};
+
+const themeState: Module<ThemeState, unknown> = {
+  namespaced: true, // Enable namespace
+  state,
+  mutations,
+  actions,
+  getters,
+};
+
+export default themeState;
