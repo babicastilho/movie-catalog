@@ -1,7 +1,7 @@
 // Header.vue
 <template>
   <header
-    class="flex justify-between items-center p-4 bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300"
+    class="flex justify-between items-center p-4 bg-gray-200 dark:bg-gray-900 text-gray-900 dark:text-gray-200"
   >
     <!-- Title -->
     <h1 class="text-2xl font-bold">Movie Catalog</h1>

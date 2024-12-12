@@ -2,7 +2,7 @@
 <template>
   <aside
     :class="[
-      'fixed inset-y-0 left-0 z-50 w-64 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-300 transform transition-transform duration-200 ease-in-out',
+      'fixed inset-y-0 left-0 z-50 w-64 bg-gray-200 dark:bg-gray-900 text-gray-900 dark:text-gray-200',
       isSidebarOpen ? 'translate-x-0' : '-translate-x-full',
     ]"
   >
@@ -12,11 +12,10 @@
       <p>conteúdo da sidebar</p>
 
       <!-- Theme Toggle Button (only for small screens) -->
-      <hr class="mt-4 bg-gray-300 dark:bg-gray-600 border-none" />
       <button
         v-if="isSidebarOpen && isSmallScreen"
         @click="toggleTheme"
-        class="mt-4 p-2 w-full text-left text-gray-700 dark:text-gray-300"
+        class="mt-4 p-2 w-full text-left"
         aria-label="Toggle Theme"
       >
         <font-awesome-icon
@@ -30,7 +29,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, onMounted, watch } from "vue";
 import { mapState, mapActions } from "vuex";
 
 export default defineComponent({
@@ -44,6 +43,20 @@ export default defineComponent({
   },
   methods: {
     ...mapActions("themeState", ["toggleTheme"]),
+  },
+  watch: {
+    theme(newTheme) {
+      document.body.className =
+        newTheme === "dark"
+          ? "bg-gray-800 text-gray-300"
+          : "bg-gray-50 text-gray-800";
+    },
+  },
+  mounted() {
+    document.body.className =
+      this.theme === "dark"
+        ? "bg-gray-800 text-gray-300"
+        : "bg-gray-50 text-gray-800";
   },
 });
 </script>

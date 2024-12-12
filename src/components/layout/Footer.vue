@@ -4,7 +4,7 @@
     class="text-center p-4"
     :class="{
       'bg-gray-200 text-gray-700': theme === 'light',
-      'bg-gray-800 text-gray-300': theme === 'dark',
+      'bg-gray-900 text-gray-200': theme === 'dark',
     }"
   >
     <p>© 2024 Movie Catalog</p>
