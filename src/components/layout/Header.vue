@@ -1,3 +1,4 @@
+// Header.vue
 <template>
   <header
     class="flex justify-between items-center p-4 bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300"
@@ -31,23 +32,17 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { theme, toggleTheme } from "@/store/themeState"; // Shared theme state
+import { mapState, mapActions, mapMutations } from "vuex";
 
 export default defineComponent({
-  name: "AppHeader", // Atualizado para seguir a convenção
-  props: {
-    isSidebarOpen: {
-      type: Boolean,
-      required: true,
-    },
+  name: "AppHeader",
+  computed: {
+    ...mapState("uiState", ["isSidebarOpen"]),
+    ...mapState("themeState", ["theme"]),
   },
-  emits: ["toggle-sidebar"],
-  setup(_, { emit }) {
-    const toggleSidebar = () => {
-      emit("toggle-sidebar");
-    };
-
-    return { theme, toggleTheme, toggleSidebar };
+  methods: {
+    ...mapMutations("uiState", ["toggleSidebar"]),
+    ...mapActions("themeState", ["toggleTheme"]),
   },
 });
 </script>

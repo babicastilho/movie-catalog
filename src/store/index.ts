@@ -1,13 +1,16 @@
 import { createStore } from "vuex";
+import uiState from "./uiState";
+import themeState from "./themeState";
 
 export default createStore({
-  state: {
-    message: "Welcome to Vuex Store!",
+  modules: {
+    uiState: {
+      namespaced: true,
+      ...uiState,
+    },
+    themeState: {
+      namespaced: true,
+      ...themeState,
+    },
   },
-  getters: {
-    getMessage: (state) => state.message,
-  },
-  mutations: {},
-  actions: {},
-  modules: {},
 });

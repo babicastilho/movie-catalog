@@ -13,12 +13,12 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { theme } from "@/store/themeState"; // Import the shared theme state
+import { mapState } from "vuex";
 
 export default defineComponent({
   name: "AppFooter",
-  setup() {
-    return { theme };
+  computed: {
+    ...mapState("themeState", ["theme"]),
   },
 });
 </script>

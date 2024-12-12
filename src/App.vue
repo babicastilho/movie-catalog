@@ -1,15 +1,12 @@
+// App.vue
 <template>
   <div id="app" class="flex flex-col h-screen">
     <!-- Header -->
-    <AppHeader :isSidebarOpen="isSidebarOpen" @toggle-sidebar="toggleSidebar" />
+    <AppHeader />
 
     <div class="flex flex-1 relative">
       <!-- Sidebar -->
-      <AppSidebar
-        :isOpen="isSidebarOpen"
-        @toggle-sidebar="toggleSidebar"
-        class="absolute lg:relative lg:translate-x-0 z-50"
-      />
+      <AppSidebar class="absolute lg:relative lg:translate-x-0 z-50" />
 
       <!-- Main Content -->
       <main class="flex-1 overflow-y-auto p-4">
@@ -23,7 +20,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent } from "vue";
+import { mapState, mapMutations } from "vuex";
 import AppHeader from "@/components/layout/Header.vue";
 import AppFooter from "@/components/layout/Footer.vue";
 import AppSidebar from "@/components/layout/Sidebar.vue";
@@ -35,14 +33,11 @@ export default defineComponent({
     AppFooter,
     AppSidebar,
   },
-  setup() {
-    const isSidebarOpen = ref(false);
-
-    const toggleSidebar = () => {
-      isSidebarOpen.value = !isSidebarOpen.value;
-    };
-
-    return { isSidebarOpen, toggleSidebar };
+  computed: {
+    ...mapState("uiState", ["isSidebarOpen"]),
+  },
+  methods: {
+    ...mapMutations("uiState", ["toggleSidebar"]),
   },
 });
 </script>
