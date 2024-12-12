@@ -42,6 +42,11 @@ export function initializeTheme() {
  * @returns {string} - The updated theme after toggling.
  */
 export function toggleTheme(currentTheme: string): string {
+  const validThemes = ["light", "dark"];
+  if (!validThemes.includes(currentTheme)) {
+    return currentTheme; // Keep the current theme if the input is invalid
+  }
+
   const newTheme = currentTheme === "dark" ? "light" : "dark";
   document.documentElement.classList.toggle("dark", newTheme === "dark");
   localStorage.setItem("theme", newTheme); // Persist the new theme
