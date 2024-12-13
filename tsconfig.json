@@ -14,12 +14,13 @@
     "baseUrl": ".",
     "types": [
       "webpack-env",
-      "jest"
+      "node",
+      "jest",
+      "vuex"
     ],
     "paths": {
-      "@/*": [
-        "src/*"
-      ]
+      "@/*": ["src/*"],
+      "@tests/*": ["tests/*"]
     },
     "lib": [
       "esnext",
