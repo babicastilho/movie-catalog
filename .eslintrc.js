@@ -1,7 +1,8 @@
 module.exports = {
   root: true,
   env: {
-    node: true,
+    jest: true, // Add Jest global variables
+    node: true, // Add Node.js global variables
   },
   extends: [
     "plugin:vue/vue3-essential",
