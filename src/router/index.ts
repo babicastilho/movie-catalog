@@ -1,23 +1,35 @@
 import { createRouter, createWebHistory } from "vue-router";
-import TestView from "@/views/TestView.vue";
+import HomeView from "@/views/HomeView.vue";
+import AboutView from "@/views/AboutView.vue";
+import MovieListView from "@/views/MovieListView.vue";
+import MovieDetailsView from "@/views/MovieDetailsView.vue";
 
-// Define application routes
 const routes = [
   {
-    path: "/", // Home route
-    name: "Home",
-    component: () => import("../views/HomeView.vue"), // Lazy load the Home view
+    path: "/",
+    name: "home",
+    component: HomeView,
   },
   {
-    path: "/test",
-    name: "Test",
-    component: TestView, // Add the Test route
+    path: "/about",
+    name: "about",
+    component: AboutView,
+  },
+  {
+    path: "/movielist",
+    name: "movie-list",
+    component: MovieListView,
+  },
+  {
+    path: "/movielist/:id",
+    name: "movie-details",
+    component: MovieDetailsView,
+    props: true, // Pass the `id` parameter as a prop to the component
   },
 ];
 
-// Create Vue Router instance
 const router = createRouter({
-  history: createWebHistory(), // Use history mode for clean URLs
+  history: createWebHistory(process.env.BASE_URL),
   routes,
 });
 

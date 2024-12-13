@@ -14,9 +14,38 @@
     />
     <!-- Sidebar Header -->
     <div class="p-4" data-testid="sidebar-header" data-cy="sidebar-header">
-      <p data-testid="sidebar-content" data-cy="sidebar-content">
-        Sidebar Content goes here :D
-      </p>
+      <!-- Navigation Links -->
+      <nav>
+        <!-- Home -->
+        <router-link
+          to="/"
+          class="block mt-2 p-2 bg-gray-300 hover:bg-gray-400 dark:bg-gray-700 dark:hover:bg-gray-600 rounded"
+          data-testid="nav-home"
+          data-cy="nav-home"
+        >
+          Home
+        </router-link>
+
+        <!-- Movie List -->
+        <router-link
+          to="/movielist"
+          class="block mt-2 p-2 bg-gray-300 hover:bg-gray-400 dark:bg-gray-700 dark:hover:bg-gray-600 rounded"
+          data-testid="nav-movie-list"
+          data-cy="nav-movie-list"
+        >
+          Movie List
+        </router-link>
+
+        <!-- About -->
+        <router-link
+          to="/about"
+          class="block mt-2 p-2 bg-gray-300 hover:bg-gray-400 dark:bg-gray-700 dark:hover:bg-gray-600 rounded"
+          data-testid="nav-about"
+          data-cy="nav-about"
+        >
+          About
+        </router-link>
+      </nav>
 
       <!-- Theme Toggle Button (only for small screens) -->
       <button
