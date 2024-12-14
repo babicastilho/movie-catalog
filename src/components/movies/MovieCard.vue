@@ -52,6 +52,15 @@ export default defineComponent({
     >
       {{ truncatedOverview }}
     </p>
+    <!-- Link para detalhes do filme -->
+    <router-link
+      :to="`/movielist/${movie.id}`"
+      class="text-blue-500 hover:underline mt-2 inline-block"
+      :data-testid="`movie-details-link-${movie.id}`"
+      :data-cy="`movie-details-link-${movie.id}`"
+    >
+      View More
+    </router-link>
   </div>
 </template>
 
