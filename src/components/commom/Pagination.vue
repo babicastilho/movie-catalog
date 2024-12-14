@@ -1,4 +1,4 @@
-// PaginationControl.vue
+// Pagination.vue
 <template>
   <div class="flex items-center justify-center space-x-2 my-4">
     <button

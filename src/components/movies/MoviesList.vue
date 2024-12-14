@@ -9,31 +9,35 @@
     <!-- Movies List -->
     <div
       v-if="movies.length"
-      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+      class="grid grid-cols-1 sd:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4"
+      data-testid="movies-list"
+      data-cy="movies-list"
     >
-      <div
+      <!-- Use the MovieCard component for each movie -->
+      <MovieCard
         v-for="movie in movies"
         :key="movie.id"
-        class="bg-gray-200 p-4 rounded shadow"
-      >
-        <img
-          :src="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
-          alt="Movie Poster"
-          class="w-full h-auto rounded"
-        />
-        <h2 class="text-lg font-bold mt-2">{{ movie.title }}</h2>
-        <p>{{ movie.overview }}</p>
-      </div>
+        :movie="movie"
+        :data-testid="`movie-card-${movie.id}`"
+        :data-cy="`movie-card-${movie.id}`"
+      />
     </div>
+
+    <!-- No movies found -->
+    <p v-else-if="!isLoading && !error" class="text-center text-gray-500">
+      No movies found.
+    </p>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, computed, onMounted } from "vue";
 import { useStore } from "vuex";
+import MovieCard from "@/components/movies/MovieCard.vue"; // Import the MovieCard component
 
 export default defineComponent({
   name: "MoviesList",
+  components: { MovieCard }, // Register MovieCard as a component
   setup() {
     // Initialize the Vuex store
     const store = useStore();
