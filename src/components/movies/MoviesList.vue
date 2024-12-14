@@ -1,7 +1,7 @@
 <template>
   <div class="p-4">
     <!-- Loader -->
-    <p v-if="isLoading" class="text-center">Loading...</p>
+    <Spinner v-if="isLoading" />
 
     <!-- Error Message -->
     <p v-if="error" class="text-center text-red-500">{{ error }}</p>
@@ -34,10 +34,11 @@
 import { defineComponent, computed, onMounted } from "vue";
 import { useStore } from "vuex";
 import MovieCard from "@/components/movies/MovieCard.vue"; // Import the MovieCard component
+import Spinner from "@/components/commom/Spinner.vue"; // Import the Spinner component
 
 export default defineComponent({
   name: "MoviesList",
-  components: { MovieCard }, // Register MovieCard as a component
+  components: { MovieCard, Spinner }, // Register MovieCard and Spinner as components
   setup() {
     // Initialize the Vuex store
     const store = useStore();
@@ -51,8 +52,6 @@ export default defineComponent({
     onMounted(() => {
       store.dispatch("moviesState/fetchMovies");
     });
-
-    console.log("Movies state in component:", movies.value);
 
     return {
       movies,
