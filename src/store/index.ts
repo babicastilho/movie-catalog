@@ -1,7 +1,8 @@
 import { createStore } from "vuex";
 import uiState from "./uiState";
 import themeState from "./themeState";
-import moviesState from "./moviesState"; // Importação do módulo moviesState
+import moviesState from "./moviesState";
+import movieDetails from "./movieDetails"; // Importação do módulo movieDetails
 
 export default createStore({
   modules: {
@@ -16,6 +17,10 @@ export default createStore({
     moviesState: {
       namespaced: true,
       ...moviesState,
+    },
+    movieDetails: {
+      namespaced: true,
+      ...movieDetails,
     },
   },
 });
