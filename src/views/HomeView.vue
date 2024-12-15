@@ -4,7 +4,7 @@
     data-testid="welcome-section"
     data-cy="welcome-section"
   >
-    <!-- Título Principal -->
+    <!-- Main Title -->
     <h1
       class="text-4xl font-bold text-gray-900 dark:text-gray-100"
       data-testid="project-title"
@@ -12,7 +12,7 @@
       Welcome to Movie Catalog!
     </h1>
 
-    <!-- Descrição do Projeto -->
+    <!-- Project Description -->
     <p
       class="text-lg text-gray-700 dark:text-gray-300 max-w-2xl"
       data-testid="project-description"
@@ -22,7 +22,7 @@
       support.
     </p>
 
-    <!-- Lista de Funcionalidades -->
+    <!-- Feature List -->
     <ul
       class="text-left space-y-2 text-gray-800 dark:text-gray-400"
       data-testid="feature-list"
@@ -33,7 +33,7 @@
       <li>⭐ Discover cast members and genres.</li>
     </ul>
 
-    <!-- Botão CTA -->
+    <!-- Call-to-Action Button -->
     <router-link
       to="/movielist"
       class="inline-block px-6 py-3 text-white bg-blue-500 hover:bg-blue-600 rounded-lg shadow-md transition duration-300"

@@ -4,6 +4,7 @@ import { defineComponent, PropType } from "vue";
 export default defineComponent({
   name: "MovieCard",
   props: {
+    // Movie object containing id, title, poster path, and overview
     movie: {
       type: Object as PropType<{
         id: number;
@@ -15,7 +16,7 @@ export default defineComponent({
     },
   },
   computed: {
-    // Truncar a sinopse em 100 caracteres
+    // Truncate the movie overview to 100 characters with ellipsis
     truncatedOverview(): string {
       return this.movie.overview.length > 100
         ? this.movie.overview.substring(0, 100) + "..."
@@ -31,6 +32,7 @@ export default defineComponent({
     :data-testid="`movie-card-${movie.id}`"
     :data-cy="`movie-card-${movie.id}`"
   >
+    <!-- Movie Poster -->
     <img
       class="movie-poster w-full rounded-lg mb-4 opacity-80 group-hover:opacity-100 transition-opacity"
       :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`"
@@ -38,6 +40,8 @@ export default defineComponent({
       :data-testid="`movie-poster-${movie.id}`"
       :data-cy="`movie-poster-${movie.id}`"
     />
+
+    <!-- Movie Title -->
     <h2
       class="movie-title text-xl font-bold mb-2"
       :data-testid="`movie-title-${movie.id}`"
@@ -45,6 +49,8 @@ export default defineComponent({
     >
       {{ movie.title }}
     </h2>
+
+    <!-- Movie Overview -->
     <p
       class="movie-overview text-sm text-gray-700 dark:text-gray-300"
       :data-testid="`movie-overview-${movie.id}`"
@@ -52,6 +58,7 @@ export default defineComponent({
     >
       {{ truncatedOverview }}
     </p>
+
     <!-- View More Button -->
     <router-link
       :to="`/movielist/${movie.id}`"
@@ -65,7 +72,7 @@ export default defineComponent({
 </template>
 
 <style scoped>
-/* Escopo local para o card */
+/* Local styling for the movie card */
 .movie-card {
   transition: background-color 0.3s ease, color 0.3s ease;
 }

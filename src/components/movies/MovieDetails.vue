@@ -4,7 +4,7 @@
     data-testid="movie-details"
     data-cy="movie-details"
   >
-    <!-- Imagem do filme -->
+    <!-- Movie Poster -->
     <div class="flex-shrink-0 w-full md:w-1/3">
       <img
         v-if="movie?.poster_path"
@@ -16,8 +16,9 @@
       />
     </div>
 
-    <!-- Detalhes do filme -->
+    <!-- Movie Details -->
     <div class="flex flex-col space-y-4 w-full">
+      <!-- Movie Title -->
       <h1
         v-if="movie?.title"
         class="text-3xl font-bold"
@@ -26,6 +27,8 @@
       >
         {{ movie.title }}
       </h1>
+
+      <!-- Movie Overview -->
       <p
         v-if="movie?.overview"
         class="text-lg text-gray-700 dark:text-gray-300"
@@ -35,7 +38,7 @@
         {{ movie.overview }}
       </p>
 
-      <!-- Gêneros do filme -->
+      <!-- Movie Genres -->
       <div
         v-if="movie?.genres?.length"
         class="text-sm text-gray-700 dark:text-gray-300"
@@ -46,7 +49,7 @@
         <span>{{ movie.genres.map((genre) => genre.name).join(", ") }}</span>
       </div>
 
-      <!-- Lista de Atores -->
+      <!-- Movie Cast -->
       <div
         v-if="cast.length"
         class="text-sm text-gray-700 dark:text-gray-300"
@@ -65,6 +68,8 @@
           </li>
         </ul>
       </div>
+
+      <!-- Release Date -->
       <p
         v-if="movie?.release_date"
         class="text-sm text-gray-500 dark:text-gray-400"
@@ -98,10 +103,12 @@ interface Cast {
 export default defineComponent({
   name: "MovieDetails",
   props: {
+    // Movie object containing title, overview, poster path, release date, and genres
     movie: {
       type: Object as () => Movie,
       required: true,
     },
+    // Array of cast members with names and characters
     cast: {
       type: Array as () => Cast[],
       required: true,
@@ -111,5 +118,5 @@ export default defineComponent({
 </script>
 
 <style scoped>
-/* Adicione estilos específicos se necessário */
+/* Specific styles for Movie Details Component */
 </style>
