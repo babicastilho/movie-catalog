@@ -1,6 +1,6 @@
 import { Module } from "vuex";
 
-interface Movie {
+export interface Movie {
   id: number;
   title: string;
   overview: string;
@@ -9,13 +9,13 @@ interface Movie {
   genres: { id: number; name: string }[];
 }
 
-interface Cast {
+export interface Cast {
   id: number;
   name: string;
   character: string;
 }
 
-interface MovieState {
+export interface MovieState {
   movie: Movie | null;
   cast: Cast[];
   isLoading: boolean;
@@ -46,10 +46,11 @@ const movieDetails: Module<MovieState, any> = {
   },
   actions: {
     async fetchMovieDetails({ commit }, movieId: number) {
+      console.log("Fetching movie details for ID:", movieId);
       commit("setLoading", true);
       commit("setError", null);
       try {
-        // Fetch detalhes do filme
+        // Fetch movie details
         const movieResponse = await fetch(
           `https://api.themoviedb.org/3/movie/${movieId}?api_key=${process.env.VUE_APP_TMDB_API_KEY}`
         );
@@ -62,8 +63,9 @@ const movieDetails: Module<MovieState, any> = {
 
         const movie = await movieResponse.json();
         commit("setMovie", movie);
+        console.log("Movie set in Vuex:", movie);
 
-        // Fetch elenco
+        // Fetch cast details
         const creditsResponse = await fetch(
           `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${process.env.VUE_APP_TMDB_API_KEY}`
         );
@@ -75,7 +77,8 @@ const movieDetails: Module<MovieState, any> = {
         }
 
         const credits = await creditsResponse.json();
-        commit("setCast", credits.cast.slice(0, 10)); // Limitar a 10 atores
+        commit("setCast", credits.cast.slice(0, 10));
+        console.log("Cast set in Vuex:", credits.cast.slice(0, 10));
       } catch (err) {
         const errorMessage =
           err instanceof Error ? err.message : "Failed to load movie details.";

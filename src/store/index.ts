@@ -1,8 +1,8 @@
 import { createStore } from "vuex";
 import uiState from "./uiState";
 import themeState from "./themeState";
-import moviesState from "./moviesState";
-import movieDetails from "./movieDetails"; // Importação do módulo movieDetails
+import movieDetails from "./movieDetails";
+import moviesState from "./moviesState"; // Importação do módulo moviesState
 
 export default createStore({
   modules: {
