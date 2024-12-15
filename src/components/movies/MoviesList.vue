@@ -9,7 +9,7 @@
     <!-- Movies List -->
     <div
       v-if="movies.length"
-      class="grid grid-cols-1 sd:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4"
+      class="grid grid-cols-1 sd:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6"
       data-testid="movies-list"
       data-cy="movies-list"
     >

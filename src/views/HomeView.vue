@@ -1,13 +1,47 @@
 <template>
-  <div class="text-center">
-    <h1 class="text-4xl font-bold text-green-500">Hello, Vue!</h1>
-    <!-- Font Awesome Icons -->
-    <font-awesome-icon icon="home" class="w-6 h-6 text-blue-500 mx-auto my-4" />
-    <font-awesome-icon
-      :icon="['fab', 'github']"
-      class="w-6 h-6 text-black mx-auto my-4"
-    />
-    <p class="text-gray-500">Powered by Font Awesome</p>
+  <div
+    class="flex flex-col items-center justify-center h-full text-center space-y-6"
+    data-testid="welcome-section"
+    data-cy="welcome-section"
+  >
+    <!-- Título Principal -->
+    <h1
+      class="text-4xl font-bold text-gray-900 dark:text-gray-100"
+      data-testid="project-title"
+    >
+      Welcome to Movie Catalog!
+    </h1>
+
+    <!-- Descrição do Projeto -->
+    <p
+      class="text-lg text-gray-700 dark:text-gray-300 max-w-2xl"
+      data-testid="project-description"
+    >
+      Explore your favorite movies, learn about their cast, genres, and details.
+      Enjoy a seamless experience with a modern design and dark/light mode
+      support.
+    </p>
+
+    <!-- Lista de Funcionalidades -->
+    <ul
+      class="text-left space-y-2 text-gray-800 dark:text-gray-400"
+      data-testid="feature-list"
+    >
+      <li>🔍 Search for movies with ease.</li>
+      <li>🎥 View detailed information about each movie.</li>
+      <li>🌗 Switch between Light and Dark mode.</li>
+      <li>⭐ Discover cast members and genres.</li>
+    </ul>
+
+    <!-- Botão CTA -->
+    <router-link
+      to="/movielist"
+      class="inline-block px-6 py-3 text-white bg-blue-500 hover:bg-blue-600 rounded-lg shadow-md transition duration-300"
+      data-testid="cta-movie-list"
+      data-cy="cta-movie-list"
+    >
+      Explore Movie List
+    </router-link>
   </div>
 </template>
 
