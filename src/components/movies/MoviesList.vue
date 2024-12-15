@@ -1,10 +1,21 @@
 <template>
   <div class="p-4">
     <!-- Loader -->
-    <Spinner v-if="isLoading" />
+    <Spinner
+      v-if="isLoading"
+      data-testid="loading-spinner"
+      data-cy="loading-spinner"
+    />
 
     <!-- Error Message -->
-    <p v-if="error" class="text-center text-red-500">{{ error }}</p>
+    <p
+      v-if="error"
+      class="text-center text-red-500"
+      data-testid="error-message"
+      data-cy="error-message"
+    >
+      {{ error }}
+    </p>
 
     <!-- Movies List -->
     <div
@@ -24,7 +35,12 @@
     </div>
 
     <!-- No movies found -->
-    <p v-else-if="!isLoading && !error" class="text-center text-gray-500">
+    <p
+      v-else-if="!isLoading && !error"
+      class="text-center text-gray-500"
+      data-testid="no-movies-message"
+      data-cy="no-movies-message"
+    >
       No movies found.
     </p>
   </div>
@@ -61,3 +77,7 @@ export default defineComponent({
   },
 });
 </script>
+
+<style scoped>
+/* Add custom styles here if needed */
+</style>
