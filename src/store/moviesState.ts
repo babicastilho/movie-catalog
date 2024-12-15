@@ -19,7 +19,7 @@ export const mutations: MutationTree<MoviesState> = {
     state.totalPages = payload.totalPages;
     console.log(
       `Movies updated: ${state.movies.length} movies, Total pages: ${state.totalPages}`
-    ); // Log de depuração
+    );
   },
   setPage(state, page: number) {
     state.currentPage = page;
@@ -50,9 +50,8 @@ const actions: ActionTree<MoviesState, any> = {
 
       console.log(
         `Fetching movies: Page ${currentPage}, Items per page: ${itemsPerPage}, Genre: ${genre}`
-      ); // Log de depuração
+      );
 
-      // Montar URL com parâmetros para paginação e filtro de gênero
       const response = await fetch(
         `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.VUE_APP_TMDB_API_KEY}&page=${currentPage}&with_genres=${genre}&language=en-US`
       );
@@ -63,24 +62,53 @@ const actions: ActionTree<MoviesState, any> = {
 
       const data = await response.json();
 
-      // Filtrar apenas os filmes que possuem o gênero especificado (caso a API retorne itens fora do filtro)
-      const filteredMovies = data.results.filter((movie: any) => {
-        return movie.genre_ids.includes(Number(genre)); // Gêneros retornados pela API estão no formato de array
-      });
+      const filteredMovies = data.results.filter((movie: any) =>
+        movie.genre_ids.includes(Number(genre))
+      );
 
-      // Atualizar o estado com os filmes filtrados e o total de páginas
       const totalFilteredMovies = filteredMovies.length;
       const totalPages = Math.ceil(totalFilteredMovies / itemsPerPage);
 
       commit("setMovies", {
-        movies: filteredMovies.slice(0, itemsPerPage), // Retorna apenas os itens para a página atual
+        movies: filteredMovies.slice(0, itemsPerPage),
         totalPages,
       });
 
       commit("setError", null);
     } catch (err) {
-      console.error("Error fetching movies:", err); // Log de erro
+      console.error("Error fetching movies:", err);
       commit("setError", "Failed to fetch movies. Please try again later.");
+    } finally {
+      commit("setLoading", false);
+    }
+  },
+  async searchMovies({ commit }, query: string) {
+    commit("setLoading", true);
+
+    try {
+      console.log(`Searching movies for query: ${query}`);
+
+      const response = await fetch(
+        `https://api.themoviedb.org/3/search/movie?api_key=${
+          process.env.VUE_APP_TMDB_API_KEY
+        }&query=${encodeURIComponent(query)}&language=en-US`
+      );
+
+      if (!response.ok) {
+        throw new Error(`API responded with status: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      commit("setMovies", {
+        movies: data.results,
+        totalPages: data.total_pages,
+      });
+
+      commit("setError", null);
+    } catch (err) {
+      console.error("Error searching movies:", err);
+      commit("setError", "Failed to search movies. Please try again later.");
     } finally {
       commit("setLoading", false);
     }
@@ -93,8 +121,8 @@ const moviesState: Module<MoviesState, any> = {
     movies: [],
     totalPages: 0,
     currentPage: 1,
-    itemsPerPage: 10, // Configuração padrão de 10 itens por página
-    genre: "28", // Exemplo: gênero 'Action'
+    itemsPerPage: 10,
+    genre: "28",
     error: null,
     isLoading: false,
     selectedMovie: null,

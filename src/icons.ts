@@ -21,6 +21,7 @@ import {
   faBars,
   faTimes,
   faChevronDown,
+  faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 
@@ -35,7 +36,8 @@ library.add(
   faMoon,
   faBars,
   faTimes,
-  faChevronDown
+  faChevronDown,
+  faSearch
 );
 
 // Confirmation message in development environments
