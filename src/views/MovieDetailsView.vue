@@ -86,42 +86,43 @@
           <span data-testid="genres-list" data-cy="genres-list">{{
             movie.genres.map((genre) => genre.name).join(", ")
           }}</span>
-          <!-- Display cast -->
-          <div
-            v-if="cast.length"
-            class="mt-6 text-sm text-gray-700 dark:text-gray-300"
-            data-testid="cast-container"
-            data-cy="cast-container"
+        </div>
+
+        <!-- Display cast -->
+        <div
+          v-if="cast.length"
+          class="mt-6 text-sm text-gray-700 dark:text-gray-300"
+          data-testid="cast-container"
+          data-cy="cast-container"
+        >
+          <h2
+            class="text-lg font-semibold mb-2"
+            data-testid="cast-title"
+            data-cy="cast-title"
           >
-            <h2
-              class="text-lg font-semibold mb-2"
-              data-testid="cast-title"
-              data-cy="cast-title"
+            Cast:
+          </h2>
+          <ul
+            class="list-disc ml-5 space-y-1"
+            data-testid="cast-list"
+            data-cy="cast-list"
+          >
+            <li
+              v-for="actor in cast"
+              :key="actor.id"
+              data-testid="cast-item"
+              data-cy="cast-item"
             >
-              Cast:
-            </h2>
-            <ul
-              class="list-disc ml-5 space-y-1"
-              data-testid="cast-list"
-              data-cy="cast-list"
-            >
-              <li
-                v-for="actor in cast"
-                :key="actor.id"
-                data-testid="cast-item"
-                data-cy="cast-item"
+              {{ actor.name }} as
+              <span
+                class="italic"
+                data-testid="actor-character"
+                data-cy="actor-character"
               >
-                {{ actor.name }} as
-                <span
-                  class="italic"
-                  data-testid="actor-character"
-                  data-cy="actor-character"
-                >
-                  {{ actor.character }}
-                </span>
-              </li>
-            </ul>
-          </div>
+                {{ actor.character }}
+              </span>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
@@ -129,7 +130,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, onMounted } from "vue";
+import { defineComponent, computed, watch } from "vue";
 import { useStore } from "vuex";
 import { useRoute } from "vue-router";
 
@@ -137,6 +138,7 @@ export default defineComponent({
   name: "MovieDetailsView",
   setup() {
     const store = useStore();
+    const route = useRoute();
 
     // Computed properties to access Vuex state
     const movie = computed(() => store.state.movieDetails.movie);
@@ -144,13 +146,18 @@ export default defineComponent({
     const isLoading = computed(() => store.state.movieDetails.isLoading);
     const error = computed(() => store.state.movieDetails.error);
 
-    const route = useRoute();
+    const fetchMovieDetails = (id: number) => {
+      store.dispatch("movieDetails/fetchMovieDetails", id);
+    };
 
-    // Fetch movie details when the component is mounted
-    onMounted(() => {
-      const movieId = parseInt(route.params.id as string, 10);
-      store.dispatch("movieDetails/fetchMovieDetails", movieId);
-    });
+    // Watch for route changes to update movie details
+    watch(
+      () => route.params.id,
+      (newId) => {
+        if (newId) fetchMovieDetails(parseInt(newId as string, 10));
+      },
+      { immediate: true }
+    );
 
     return { movie, cast, isLoading, error };
   },

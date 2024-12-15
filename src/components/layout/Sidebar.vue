@@ -1,7 +1,7 @@
 <template>
   <aside
     :class="[
-      'fixed inset-y-0 left-0 z-50 w-64 bg-gray-200 dark:bg-gray-900 text-gray-900 dark:text-gray-200',
+      'inset-y-0 left-0 z-50 w-64 bg-gray-200 dark:bg-gray-900 text-gray-900 dark:text-gray-200',
       isSidebarOpen ? 'translate-x-0' : '-translate-x-full',
     ]"
     data-testid="sidebar"

@@ -49,6 +49,7 @@ const movieDetails: Module<MovieState, any> = {
       console.log("Fetching movie details for ID:", movieId);
       commit("setLoading", true);
       commit("setError", null);
+
       try {
         // Fetch movie details
         const movieResponse = await fetch(
@@ -63,7 +64,6 @@ const movieDetails: Module<MovieState, any> = {
 
         const movie = await movieResponse.json();
         commit("setMovie", movie);
-        console.log("Movie set in Vuex:", movie);
 
         // Fetch cast details
         const creditsResponse = await fetch(
@@ -77,8 +77,7 @@ const movieDetails: Module<MovieState, any> = {
         }
 
         const credits = await creditsResponse.json();
-        commit("setCast", credits.cast.slice(0, 10));
-        console.log("Cast set in Vuex:", credits.cast.slice(0, 10));
+        commit("setCast", credits.cast.slice(0, 10)); // Mostra os 10 primeiros membros do elenco
       } catch (err) {
         const errorMessage =
           err instanceof Error ? err.message : "Failed to load movie details.";
