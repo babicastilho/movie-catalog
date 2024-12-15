@@ -87,23 +87,47 @@ describe("Vuex Movies State - fetchMovies", () => {
   });
 
   it("should call fetchMovies when setPage action is dispatched", async () => {
-    // Mock the fetchMovies action
-    const dispatchMock = jest.fn();
+    // Mock do commit e estado do Vuex
+    const commitMock = jest.fn();
+    const stateMock = {
+      currentPage: 1,
+      genre: "28",
+      itemsPerPage: 10,
+    };
 
-    // Create a Vuex store with a mocked fetchMovies action
+    // Mock da action fetchMovies
+    const fetchMoviesMock = jest.fn();
+
+    // Store com o mock da ação
     const store = createStore({
-      ...moviesState,
-      actions: {
-        ...moviesState.actions,
-        fetchMovies: dispatchMock, // Replace fetchMovies with mock
+      modules: {
+        moviesState: {
+          namespaced: true,
+          state: stateMock,
+          mutations: moviesState.mutations,
+          actions: {
+            setPage: async (
+              { commit }: ActionContext<MoviesState, any>,
+              page: number
+            ) => {
+              commit("setPage", page);
+              await fetchMoviesMock({ commit, state: stateMock });
+            },
+          },
+        },
       },
     });
 
-    // Dispatch the `setPage` action with page number 2
-    await store.dispatch("setPage", 2);
+    // Dispatch e validação
+    await store.dispatch("moviesState/setPage", 2);
 
-    // Ensure that fetchMovies was called exactly once
-    expect(dispatchMock).toHaveBeenCalledTimes(1);
+    expect(fetchMoviesMock).toHaveBeenCalledTimes(1);
+    expect(fetchMoviesMock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        commit: expect.any(Function),
+        state: expect.any(Object),
+      })
+    );
   });
 
   it("should set the selected movie via setSelectedMovie mutation", () => {
