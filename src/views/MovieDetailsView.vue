@@ -126,6 +126,15 @@
         </div>
       </div>
     </div>
+    <!-- Back Button -->
+    <router-link
+      to="/movielist"
+      class="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors inline-block mb-4"
+      data-testid="back-button"
+      data-cy="back-button"
+    >
+      « Back to Movie List
+    </router-link>
   </div>
 </template>
 
